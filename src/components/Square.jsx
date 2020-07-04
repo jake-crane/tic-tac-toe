@@ -1,9 +1,8 @@
 import React from 'react'
 
-const Square = props => {
-    const { data } = props;
+const Square = ({ data, onClick }) => {
     return (
-        <div className="square" onClick={() => props.onClick(data)}>
+        <div className="square" onClick={() => onClick(data)}>
             {data.value}
         </div>
     );

@@ -33,8 +33,7 @@ function getGameStatus(board) {
     return null;
 }
 
-const Board = props => {
-    const { board } = props;
+const Board = ({ board }) => {
     const [gameActive, setGameActive] = useState(true);
     const [placeX, setplaceX] = useState(true);
     const selectSquare = square => {
