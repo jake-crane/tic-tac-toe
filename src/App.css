@@ -1,8 +1,32 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.board-container {
+  flex: 1;
+}
+
 table.board {
   table-layout: fixed;
   border-collapse: collapse;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
 }
 
 .board table,
@@ -17,4 +41,9 @@ td {
   justify-content: center;
   width: 100%;
   height: 100%;
+}
+
+button {
+  height: auto;
+  width: auto;
 }

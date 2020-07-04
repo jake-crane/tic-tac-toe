@@ -1,20 +1,11 @@
 import React, { useState } from 'react'
 import Square from './Square';
 
-function getNewBoard() {
-    return [
-        { value: null }, { value: null }, { value: null },
-        { value: null }, { value: null }, { value: null },
-        { value: null }, { value: null }, { value: null }
-    ];
-}
-
 function squaresMatch(board, i0, i1, i2) {
     return board[i0].value != null && board[i0].value === board[i1].value && board[i0].value === board[i2].value
 }
 
 function getGameStatus(board) {
-
     //left to right
     if (squaresMatch(board, 0, 1, 2))
         return board[0].value;
@@ -42,8 +33,8 @@ function getGameStatus(board) {
     return null;
 }
 
-const Board = () => {
-    const [board] = useState(getNewBoard());
+const Board = props => {
+    const { board } = props;
     const [gameActive, setGameActive] = useState(true);
     const [placeX, setplaceX] = useState(true);
     const selectSquare = square => {
@@ -64,19 +55,21 @@ const Board = () => {
         }
     };
     return (
-        <table className="board">
-            <tbody>
-                <tr>
-                    {board.slice(0, 3).map((s, i) => <td key={'0-' + i}><Square data={s} onClick={selectSquare}></Square></td>)}
-                </tr>
-                <tr>
-                    {board.slice(3, 6).map((s, i) => <td key={'1-' + i}><Square data={s} onClick={selectSquare}></Square></td>)}
-                </tr>
-                <tr>
-                    {board.slice(6, 9).map((s, i) => <td key={'2-' + i} ><Square data={s} onClick={selectSquare}></Square></td>)}
-                </tr>
-            </tbody>
-        </table>
+        <div className="board-container">
+            <table className="board">
+                <tbody>
+                    <tr>
+                        {board.slice(0, 3).map((s, i) => <td key={'0-' + i}><Square data={s} onClick={selectSquare}></Square></td>)}
+                    </tr>
+                    <tr>
+                        {board.slice(3, 6).map((s, i) => <td key={'1-' + i}><Square data={s} onClick={selectSquare}></Square></td>)}
+                    </tr>
+                    <tr>
+                        {board.slice(6, 9).map((s, i) => <td key={'2-' + i} ><Square data={s} onClick={selectSquare}></Square></td>)}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     );
 };
 
