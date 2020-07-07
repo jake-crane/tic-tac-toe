@@ -1,23 +1,20 @@
 import React, { useState } from 'react'
 import './App.css';
 import Board from './components/Board';
-
-function getNewBoard() {
-  return [
-    { value: null }, { value: null }, { value: null },
-    { value: null }, { value: null }, { value: null },
-    { value: null }, { value: null }, { value: null }
-  ];
-}
-
+import { useDispatch } from 'react-redux';
+import startOverAction from './actions/startOverAction';
 
 function App() {
-  const [board, setBoard] = useState(getNewBoard());
+  const dispatch = useDispatch();
+  const [gameActive, setGameActive] = useState(true);
   return (
     <div className="app">
-      <Board board={board}></Board>
+      <Board gameActive={gameActive} />
       <div>
-        <button onClick={() => setBoard(getNewBoard())}>Start Over</button>
+        <button onClick={() => {
+          setGameActive(true);
+          dispatch(startOverAction());
+        }}>Start Over</button>
       </div>
     </div>
   );
