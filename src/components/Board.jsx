@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Square from "./Square";
 import { useSelector, useDispatch } from "react-redux";
 import populateAction from "../actions/populateAction";
+import gameInactiveAction from "../actions/gameInactiveAction";
 
 function squaresMatch(board, i0, i1, i2) {
   return (
@@ -30,24 +31,24 @@ function getGameStatus(board) {
   return null;
 }
 
-const Board = ({ gameActive }) => {
+const Board = () => {
   const dispatch = useDispatch();
-  const board = useSelector((state) => state);
+  const game = useSelector((state) => state);
 
   const [placeX, setplaceX] = useState(true);
   const selectSquare = (square) => {
-    if (gameActive) {
+    if (game.gameActive) {
       if (!square.value) {
         dispatch(populateAction(square, placeX ? "X" : "O"));
         setplaceX(!placeX);
       }
-      const status = getGameStatus(board);
+      const status = getGameStatus(game.board);
       if (status) {
         if (status === "DRAW") {
           alert(status);
         } else {
           alert(status + " wins");
-          // setGameActive(false);
+          dispatch(gameInactiveAction());
         }
       }
     }
@@ -57,21 +58,21 @@ const Board = ({ gameActive }) => {
       <table className="board">
         <tbody>
           <tr>
-            {board.slice(0, 3).map((s, i) => (
+            {game.board.slice(0, 3).map((s, i) => (
               <td key={"0-" + i}>
                 <Square data={s} onClick={selectSquare}></Square>
               </td>
             ))}
           </tr>
           <tr>
-            {board.slice(3, 6).map((s, i) => (
+            {game.board.slice(3, 6).map((s, i) => (
               <td key={"1-" + i}>
                 <Square data={s} onClick={selectSquare}></Square>
               </td>
             ))}
           </tr>
           <tr>
-            {board.slice(6, 9).map((s, i) => (
+            {game.board.slice(6, 9).map((s, i) => (
               <td key={"2-" + i}>
                 <Square data={s} onClick={selectSquare}></Square>
               </td>
